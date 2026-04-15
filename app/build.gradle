@@ -1,0 +1,52 @@
+plugins {
+    id "com.android.application"
+}
+
+android {
+    namespace "com.timeguard"
+    // Compile/target SDK : ajustable selon votre SDK installé dans Android Studio.
+    // (Par défaut : API 35, généralement disponible.)
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.timeguard"
+        minSdk 29
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation "androidx.appcompat:appcompat:1.7.1"
+    implementation "com.google.android.material:material:1.12.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.2.1"
+    implementation "androidx.recyclerview:recyclerview:1.4.0"
+
+    // WorkManager (vérifications périodiques).
+    implementation "androidx.work:work-runtime:2.10.2"
+
+    // Room (persistance stable et classique en Java).
+    implementation "androidx.room:room-runtime:2.7.1"
+    annotationProcessor "androidx.room:room-compiler:2.7.1"
+
+    // LiveData (observer simplement Room depuis des Activities).
+    implementation "androidx.lifecycle:lifecycle-livedata:2.9.0"
+
+    // Notifications.
+    implementation "androidx.core:core:1.16.0"
+}

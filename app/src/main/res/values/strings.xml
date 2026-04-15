@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TimeGuard</string>
+
+    <string name="status_usage_access">Accès stats d’utilisation</string>
+    <string name="status_notifications">Permission notifications</string>
+    <string name="granted">Accordée</string>
+    <string name="not_granted">Non accordée</string>
+
+    <string name="btn_open_usage_settings">Accorder l’accès aux stats d’utilisation</string>
+    <string name="btn_request_notifications">Demander la permission de notifications</string>
+    <string name="btn_select_apps">Sélectionner une application</string>
+    <string name="btn_history">Historique des notifications</string>
+    <string name="btn_settings">Paramètres</string>
+
+    <string name="monitoring_active">Surveillance active</string>
+    <string name="monitoring_inactive">Surveillance inactive</string>
+
+    <string name="rules_title">Règles de surveillance</string>
+    <string name="rules_empty">Aucune règle pour le moment. Ajoutez une application à surveiller.</string>
+
+    <string name="dialog_rule_title">Configurer la règle</string>
+    <string name="label_limit_minutes">Limite (minutes)</string>
+    <string name="label_cooldown_minutes">Cooldown min. (minutes, 0 = défaut)</string>
+    <string name="hint_minutes">Ex: 10</string>
+    <string name="label_enabled">Règle activée</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_save">Enregistrer</string>
+
+    <string name="apps_title">Applications installées</string>
+    <string name="search_hint">Rechercher par nom ou package…</string>
+
+    <string name="history_title">Historique</string>
+    <string name="history_empty">Aucune notification enregistrée.</string>
+    <string name="history_clear">Vider l’historique</string>
+
+    <string name="settings_title">Paramètres</string>
+    <string name="default_limit_minutes">Durée limite par défaut (minutes)</string>
+    <string name="default_cooldown_minutes">Cooldown par défaut (minutes)</string>
+    <string name="check_interval_minutes">Fréquence de vérification (minutes)</string>
+    <string name="check_interval_help">Plus court = notifications plus rapides, mais peut consommer plus de batterie. Android peut quand même retarder en arrière-plan.</string>
+    <string name="persistent_notification">Notification persistante</string>
+    <string name="persistent_notification_help">Si activé, la notification reste affichée jusqu’à “J’ai compris”.</string>
+    <string name="save_settings">Sauvegarder</string>
+
+    <string name="pedagogy_usage_access">L’accès aux statistiques d’utilisation doit être accordé manuellement dans les paramètres système.</string>
+    <string name="pedagogy_limits">La détection dépend des limitations Android : la vérification en arrière-plan peut être retardée (optimisation batterie, Doze) et n’est pas précise à la seconde.</string>
+
+    <string name="notif_channel_name">Surveillance TimeGuard</string>
+    <string name="notif_channel_desc">Notifications quand une limite de temps est dépassée</string>
+
+    <string name="notif_title">Temps dépassé</string>
+    <string name="notif_action_ack">J’ai compris</string>
+    <string name="notif_action_snooze">Rappeler plus tard</string>
+    <string name="notif_action_open_app">Ouvrir l’application</string>
+
+    <string name="confirm_delete_rule">Supprimer cette règle ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+</resources>
