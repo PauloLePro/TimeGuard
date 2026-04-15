@@ -35,8 +35,3 @@ Cette autorisation est **spéciale** (non demandée en popup).
 - Pour être plus réactif, TimeGuard utilise aussi un **OneTimeWorker replanifié** (best-effort). Android peut malgré tout retarder en arrière-plan.
 - La détection “app au premier plan” via `UsageStatsManager` dépend de la qualité des événements fournis par Android et peut être retardée ou incomplète selon l’appareil.
 - Le résultat n’est **pas garanti à la seconde près**.
-
-## Pistes d’amélioration
-- Ajouter une option “mode précision” (ex: service au premier plan) avec un coût batterie explicite.
-- Ajouter des exceptions (plages horaires, jours, etc.).
-- Exporter l’historique, ou ajouter des statistiques hebdomadaires.
