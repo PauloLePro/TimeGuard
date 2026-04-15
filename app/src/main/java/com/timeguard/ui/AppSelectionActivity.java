@@ -101,7 +101,9 @@ public class AppSelectionActivity extends AppCompatActivity {
             Intent i = new Intent(Intent.ACTION_MAIN, null);
             i.addCategory(Intent.CATEGORY_LAUNCHER);
 
-            List<ResolveInfo> resolves = pm.queryIntentActivities(i, PackageManager.MATCH_DEFAULT_ONLY);
+            // Ne pas utiliser MATCH_DEFAULT_ONLY ici: beaucoup d'apps "launcher" n'ont pas CATEGORY_DEFAULT
+            // et seraient invisibles dans la liste (cas observé selon OEM/app).
+            List<ResolveInfo> resolves = pm.queryIntentActivities(i, 0);
             List<InstalledAppInfo> out = new ArrayList<>();
             if (resolves != null) {
                 for (ResolveInfo r : resolves) {
