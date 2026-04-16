@@ -15,6 +15,7 @@ import com.timeguard.R;
 import com.timeguard.data.MonitorRule;
 import com.timeguard.data.RuleRepository;
 import com.timeguard.helpers.Prefs;
+import com.timeguard.helpers.WindowInsetsHelper;
 import com.timeguard.ui.adapters.AppAdapter;
 import com.timeguard.ui.model.InstalledAppInfo;
 
@@ -44,6 +45,7 @@ public class AppSelectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_selection);
+        WindowInsetsHelper.applySystemBarsPadding(findViewById(R.id.root));
         setTitle(R.string.apps_title);
 
         repo = RuleRepository.getInstance(this);

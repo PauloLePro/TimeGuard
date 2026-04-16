@@ -83,6 +83,20 @@ public final class MonitorScheduler {
     }
 
     /**
+     * Garantit qu'un OneShot est planifié (sans annuler une chaîne en cours).
+     * Utile comme "filet de sécurité" depuis le Worker périodique.
+     */
+    public static void ensureOneShotMonitorSeconds(Context context, long delaySeconds) {
+        OneTimeWorkRequest req = new OneTimeWorkRequest.Builder(UsageMonitorWorker.class)
+                .setInitialDelay(Math.max(0, delaySeconds), TimeUnit.SECONDS)
+                .addTag(UNIQUE_ONESHOT_WORK)
+                .build();
+        WorkManager.getInstance(context)
+                .enqueueUniqueWork(UNIQUE_ONESHOT_WORK, ExistingWorkPolicy.KEEP, req);
+        Log.d(TAG, "OneShot monitoring ensured in " + delaySeconds + " sec");
+    }
+
+    /**
      * Planifie la prochaine exécution en la chaînant après la courante (APPEND).
      * Évite de cancel un worker en cours.
      */

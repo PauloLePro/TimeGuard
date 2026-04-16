@@ -16,6 +16,7 @@ import com.timeguard.helpers.Prefs;
 import com.timeguard.helpers.UsageStatsHelper;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Worker dédié :
@@ -35,6 +36,7 @@ public class UsageMonitorWorker extends Worker {
     // Planification adaptative : plus on s'approche de la limite, plus on vérifie souvent (sans trop impacter la batterie).
     private static final long NEAR_LIMIT_WINDOW_MS = 60_000L; // 1 minute avant la limite
     private static final long MIN_FAST_CHECK_SECONDS = 10L;   // pas plus fréquent que toutes les 10s
+    private static final long FOREGROUND_LOOKBACK_MS = 24L * 60L * 60L * 1000L; // 24h
 
     public UsageMonitorWorker(@NonNull Context context, @NonNull WorkerParameters params) {
         super(context, params);
@@ -64,7 +66,7 @@ public class UsageMonitorWorker extends Worker {
             }
 
             UsageStatsHelper.ForegroundAppInfo fg =
-                    UsageStatsHelper.getForegroundApp(context, 2 * 60 * 60 * 1000L, context.getPackageName());
+                    UsageStatsHelper.getForegroundApp(context, FOREGROUND_LOOKBACK_MS, context.getPackageName());
 
             if (fg == null) {
                 Log.d(TAG, "Foreground app unknown (no reliable data)");
@@ -146,7 +148,16 @@ public class UsageMonitorWorker extends Worker {
         long delay = computedDelaySeconds > 0 ? computedDelaySeconds : baseIntervalSeconds(context);
         // Hard clamp pour éviter une boucle trop agressive.
         delay = Math.max(10L, Math.min(delay, 60L * 60L)); // [10s .. 1h]
-        com.timeguard.helpers.MonitorScheduler.appendNextOneShotMonitorSeconds(context, delay);
+
+        // Si on est déjà dans la chaîne OneShot, on append pour ne pas annuler le worker courant.
+        // Si on est dans le périodique, on se contente d'assurer qu'un OneShot existe (KEEP) :
+        // sinon le périodique peut, à lui seul, créer une file de checks trop longue.
+        Set<String> tags = getTags();
+        if (tags != null && tags.contains(com.timeguard.helpers.MonitorScheduler.UNIQUE_ONESHOT_WORK)) {
+            com.timeguard.helpers.MonitorScheduler.appendNextOneShotMonitorSeconds(context, delay);
+        } else {
+            com.timeguard.helpers.MonitorScheduler.ensureOneShotMonitorSeconds(context, delay);
+        }
     }
 
     private static long baseIntervalSeconds(Context context) {

@@ -6,11 +6,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.timeguard.R;
 import com.timeguard.receivers.NotificationActionReceiver;
@@ -87,14 +90,19 @@ public final class NotificationHelper {
         // Action: "Ouvrir l'application"
         PendingIntent openApp = createOpenAppPendingIntent(context, packageName, notificationId + 2);
 
+        int accentColor = ContextCompat.getColor(context, R.color.tg_logo_blue);
+        Bitmap appLogo = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+
         NotificationCompat.Builder b = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
+                .setLargeIcon(appLogo)
                 .setContentTitle(context.getString(R.string.notif_title))
                 .setContentText(text)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
                 .setPriority(NotificationCompat.PRIORITY_MAX) // heads-up si possible
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setColor(accentColor)
                 .setVibrate(new long[]{0, 250, 100, 250})
                 .setDefaults(NotificationCompat.DEFAULT_SOUND)
                 .addAction(0, context.getString(R.string.notif_action_ack), ack)
@@ -109,9 +117,11 @@ public final class NotificationHelper {
             // Plus voyant : reste affiché tant que l'utilisateur n'a pas acquitté.
             b.setOngoing(true);
             b.setAutoCancel(false);
+            b.setColorized(true);
         } else {
             b.setOngoing(false);
             b.setAutoCancel(true);
+            b.setColorized(false);
         }
 
         NotificationManagerCompat.from(context).notify(notificationId, b.build());

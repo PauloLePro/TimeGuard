@@ -20,6 +20,7 @@ import com.timeguard.data.RuleRepository;
 import com.timeguard.helpers.MonitorScheduler;
 import com.timeguard.helpers.PermissionHelper;
 import com.timeguard.helpers.Prefs;
+import com.timeguard.helpers.WindowInsetsHelper;
 import com.timeguard.ui.adapters.RuleAdapter;
 
 import java.util.List;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        WindowInsetsHelper.applySystemBarsPadding(findViewById(R.id.root));
 
         repo = RuleRepository.getInstance(this);
 

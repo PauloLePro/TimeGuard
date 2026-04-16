@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.timeguard.R;
 import com.timeguard.data.RuleRepository;
+import com.timeguard.helpers.WindowInsetsHelper;
 import com.timeguard.ui.adapters.HistoryAdapter;
 
 public class HistoryActivity extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+        WindowInsetsHelper.applySystemBarsPadding(findViewById(R.id.root));
         setTitle(R.string.history_title);
 
         repo = RuleRepository.getInstance(this);
@@ -54,4 +56,3 @@ public class HistoryActivity extends AppCompatActivity {
                 .show();
     }
 }
-

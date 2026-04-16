@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.timeguard.R;
 import com.timeguard.helpers.Prefs;
+import com.timeguard.helpers.WindowInsetsHelper;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        WindowInsetsHelper.applySystemBarsPadding(findViewById(R.id.root));
         setTitle(R.string.settings_title);
 
         EditText etDefaultLimit = findViewById(R.id.etDefaultLimit);
